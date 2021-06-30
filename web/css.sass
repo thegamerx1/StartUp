@@ -1,0 +1,97 @@
+main
+	.container
+		box-shadow: 0px 0px 7px -1px #000000
+		flex: 1
+		flex-grow: 1
+		border: 1px solid #5c5c5c
+		background-color: #303030
+	#console-container
+		flex-grow: 2.5
+
+
+#console-container
+	padding: 0
+	display: flex
+	flex-direction: column
+	ol.breadcrumb
+		background-color: rgba(0, 0, 0, 0.100)
+		padding: .4em
+		padding-left: 13px
+		margin: 0
+		border-bottom: 1px solid #424242
+		border-radius: 0
+		.breadcrumb-item
+			&:first-child
+				cursor: pointer
+				color: #6a8bd1
+				&:hover
+					text-decoration: underline
+
+
+#extensionlist
+	padding: 0
+	overflow: auto
+	overflow-x: hidden
+	.extension-item
+		font-size: 90%
+		transition: .3s
+		background-color: #4b4b4b
+		border-bottom: 5px solid #424242
+		position: relative
+		div.content
+			padding: 10px
+			height: 40px
+			overflow: hidden
+			white-space: nowrap
+			overflow: hidden
+			text-overflow: ellipsis
+			flex-grow: 3
+		&:hover
+			div.buttons
+				background: linear-gradient(to right, rgba(34, 34, 34, 0) 0%, rgba(34, 34, 34, 0.377) 15%)
+				visibility: visible
+				opacity: 1
+				width: auto
+
+		div.buttons
+			visibility: hidden
+			position: absolute
+			top: 0
+			bottom: 0
+			right: 0
+			display: flex
+			justify-content: flex-end
+			width: 0px
+			transition: opacity .1s
+			opacity: .3
+			font-size: 3vw
+			button
+				padding: 0 15px
+				align-items: center
+				display: flex
+				flex-direction: column
+				height: 100%
+				border: 0
+				background: transparent
+				&:hover
+					background: rgba(0, 0, 0, 0.176)
+
+
+
+#extensionconfig
+	.modal-dialog
+		margin: 0 1em
+		max-width: none
+	.modal-content
+		.modal-body
+			height: 55vh
+		.modal-footer
+			display: flex
+			justify-content: flex-start
+			padding: 10px
+			button
+				margin-left: .6em
+				&:last-child
+					margin-left: auto
+				&:first-child
+					width: 80px
