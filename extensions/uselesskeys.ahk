@@ -5,9 +5,7 @@ class extension_uselesskeys extends extension_ {
 	Start() {
 		this.addhotkey("+Insert", "hotkey",, "prev")
 		this.addhotkey("+Home", "hotkey",, "paus")
-		; this.addhotkey("#s", "hotkey",, "keypirinha")
 		this.addhotkey("+PgUp", "hotkey",, "next")
-		this.addhotkey("+F8", "hotkey",, "fuckthetextup")
 	}
 
 	hotkey(name) {
@@ -20,10 +18,6 @@ class extension_uselesskeys extends extension_ {
 
 			case "next":
 				send {Media_Next}
-
-			; case "keypirinha":
-			; 	action := winactive("ahk_class keypirinha_wndcls_run") ? "hide" : "show"
-			; 	run H:\Programs\Keypirinha\keypirinha.exe --%action%
 		}
 	}
 }
