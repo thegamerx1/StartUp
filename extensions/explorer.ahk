@@ -14,9 +14,9 @@ class extension_explorer extends extension_ {
 
 	open() {
 		if (!WinExist(this.explorer)) {
-			run explorer.exe F:\
+			run explorer.exe
 		} else if (WinActive(this.explorer)) {
-			SendMessage 0x112, 0xF020,,, % this.explorer ; 0x112 = WM_SYSCOMMAND, 0xF020 = SC_MINIMIZE
+			SendMessage 0x112, 0xF020,,, % this.explorer
 		} else {
 			WinActivate % this.explorer
 		}

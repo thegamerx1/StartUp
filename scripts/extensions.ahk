@@ -1,8 +1,14 @@
 class extension_ {
 	__New(ByRef config) {
 		this.name := SubStr(this.base.__Class, StrLen("extension_")+1)
+		for name, value in includer.list {
+			if (name == this.name ".ahk") {
+				this.extension.asset := value.folder
+				break
+			}
+		}
 		if this.extension.gui {
-			FileRead html, % "extensions\" this.name ".html"
+			FileRead html, % this.getAsset("config.html")
 			if html {
 				this.extension.html := html
 			} else {
@@ -14,9 +20,17 @@ class extension_ {
 		this.extension.loaded := true
 	}
 
+	getAsset(name) {
+		path := this.extension.asset "/" name
+		return FileExist(path) ? path : false
+	}
+
 	log(text) {
 		s := script.starttime.get() / 1000
-		stamp := Format("[{:02d}:{:02d}:{:02d}] ", s/3600 ,Mod(s/60,60), Mod(s,60))
+		stamp := Format("[{:02d}:{:02d}:{:02d}] ", s/3600, Mod(s/60,60), Mod(s,60))
+		if IsObject(text) {
+			text := JSON.dump(text)
+		}
 		ExtensionGui.log(stamp text "`n", this.name)
 		debug.print(">" text, {label: this.name})
 	}
@@ -140,8 +154,9 @@ class extensions {
 		extensionHotkeys.init()
 
 		for k in this.data.extensions.data {
-			if !FileExist("extensions\" k ".ahk") {
+			if !Contains(k ".ahk", includer.list, true) {
 				this.data.extensions.data.delete(k)
+
 			}
 		}
 		for _, ext in includer.list {

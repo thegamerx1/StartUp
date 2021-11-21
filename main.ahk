@@ -11,8 +11,6 @@ Debug.print(extensions.loadedExtensions " Extensions Loaded (" extensions.loadti
 
 debug.print("Script initiated (" script.starttime.get() "ms)", {label: "Loader"})
 script.ready := true
-if (script.debug)
-	ExtensionGui.gui.visible := true
 Return
 
 #Include scripts/gui.ahk
