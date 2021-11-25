@@ -54,6 +54,11 @@ class ExtensionGui {
 		return (data) ? data : "{}"
 	}
 
+	getPlaceholder(name) {
+		data := JSON.dump(extensions.getExtension(name).config.placeholder)
+		return (data) ? data : "{}"
+	}
+
 	AddExtension(enabled, config, name) {
 		this.gui.wnd.addExtension(name, extensions.getNameOf(name), enabled, config)
 	}

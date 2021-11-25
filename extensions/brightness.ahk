@@ -9,8 +9,9 @@ class extension_brightness extends extension_ {
 			return
 		}
 
-		this.setSession({x:0,y:0}, 70, 20)
-		this.setSession({x:-1366, y:100}, 100, 50)
+		for _, value in GetAllMonitors() {
+			this.setSession({x:value.x,y:value.y}, 10, 50)
+		}
 	}
 
 	setSession(coord, bright, const) {

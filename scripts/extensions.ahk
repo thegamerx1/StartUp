@@ -8,8 +8,7 @@ class extension_ {
 			}
 		}
 		if this.extension.gui {
-			html := this.getAsset()
-			FileRead html, % "extensions\" this.name ".html"
+			FileRead html, % this.getAsset("config.html")
 			if html {
 				this.extension.html := html
 			} else {
@@ -29,6 +28,9 @@ class extension_ {
 	log(text) {
 		s := script.starttime.get() / 1000
 		stamp := Format("[{:02d}:{:02d}:{:02d}] ", s/3600, Mod(s/60,60), Mod(s,60))
+		if IsObject(text) {
+			text := JSON.dump(text)
+		}
 		ExtensionGui.log(stamp text "`n", this.name)
 		debug.print(">" text, {label: this.name})
 	}

@@ -1,7 +1,7 @@
 #include <timer>
-class extension_autoramdisk extends extension_ {
+class extension_ramdisk extends extension_ {
 	static extension := {}
-	,extension.name := "Auto Ram Disk"
+	,extension.name := "Ram Disk"
 	,extension.gui := true
 
 	Start() {

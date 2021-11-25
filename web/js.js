@@ -3,7 +3,7 @@ function ready() {
 		loggy: $("#logarea"),
 		extlist: $("#extensionlist"),
 		config: $("#extensionconfig"),
-		configform: $(document.forms["configForm"])
+		configform: $(document.forms["configForm"]),
 	}
 	logs = {}
 	logareaSet("main")
@@ -11,13 +11,22 @@ function ready() {
 }
 
 function debug() {
-	let array = ["Extensiuon", "Another one", "And another one", "Im an extension", "Who is the extension", "Uhmmmmmm", "EXTENSION", "Not an extension"]
+	let array = [
+		"Extensiuon",
+		"Another one",
+		"And another one",
+		"Im an extension",
+		"Who is the extension",
+		"Uhmmmmmm",
+		"EXTENSION",
+		"Not an extension",
+	]
 	let i = 0
 	while (array.length) {
 		addExtension(i++, array.pop(), !(i % 2), !(i % 4))
 	}
 	for (let i = 0; i < 50; i++) {
-		log("ie sucks" + random(10999,5909999) +"\n", "main")
+		log("ie sucks" + random(10999, 5909999) + "\n", "main")
 	}
 }
 
@@ -26,7 +35,7 @@ function log(text, type) {
 	logs[type] += text
 	if (els.loggy.attr("current") == type) {
 		els.loggy.html(logs[type])
-		els.loggy.animate({ scrollTop: els.loggy.scrollTop() + els.loggy.height() }, 120);
+		els.loggy.animate({ scrollTop: els.loggy.scrollTop() + els.loggy.height() }, 120)
 	}
 }
 
@@ -36,7 +45,7 @@ function addExtension(fake, name, enabled, hasconfig) {
 	ext.find("input").prop("checked", enabled)
 	if (hasconfig) ext.find(".config").removeClass("d-none")
 	els.extlist.append(ext)
-	log("",name)
+	log("", name)
 }
 
 function actionExtension(e, action) {
@@ -50,9 +59,10 @@ function actionExtension(e, action) {
 		case "config":
 			let html = ahk.getHtml(real)
 			let config = JSON.parse(ahk.getConfig(real))
+			let placeholder = JSON.parse(ahk.getPlaceholder(real))
 			els.config.find(".content").html(html)
 			els.config.find(".modal-title").html(fake)
-			setDataToForm(els.configform, config)
+			setDataToForm(els.configform, config, placeholder)
 			els.config.modal("show")
 			break
 
@@ -80,6 +90,6 @@ function logareaSet(type) {
 	let title = $("#console-container .title")
 	els.loggy.html(logs[type])
 	els.loggy.attr("current", type)
-	type = (type == "main" ? "Main" : ahk.getReal(type))
+	type = type == "main" ? "Main" : ahk.getReal(type)
 	title.html(type)
 }
