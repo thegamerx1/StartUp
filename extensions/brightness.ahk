@@ -1,4 +1,5 @@
 #include <VCP>
+#include <BetterPixel>
 class extension_brightness extends extension_ {
 	static extension := {}
 	,extension.name := "Brightness"
