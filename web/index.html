@@ -1,66 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Start Up</title>
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Start Up</title>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="minify/css.css" />
+	</head>
 
-<body>
-	<ahk-nav close minimize></ahk-nav>
-	<div id="loader"></div>
-	<main>
-		<div class="container" id="extensionlist"></div>
-		<div id="console-container" class="container">
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item" onclick="logareaSet('main')">Console</li>
-					<li class="breadcrumb-item active title">Library</li>
-				</ol>
-			</nav>
-			<pre class="console"><code id="logarea"></code></pre>
-		</div>
-	</main=>
+	<body>
+		<ahk-nav close minimize></ahk-nav>
+		<div id="loader"></div>
+		<main>
+			<div class="container" id="extensionlist"></div>
+			<div id="console-container" class="container">
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item" onclick="logareaSet('main')">Console</li>
+						<li class="breadcrumb-item active title">Library</li>
+					</ol>
+				</nav>
+				<pre class="console"><code id="logarea"></code></pre>
+			</div>
+		</main>
 
-	<div class="modal fade" id="extensionconfig">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<p class="modal-title">default</p>
-				</div>
-				<div class="modal-body">
-					<form class="content" name="configForm">
-						<div class="form-group">
-							hosdasda
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary btn-sm" onclick="config(this, 'close')">Close</button>
-					<button type="button" class="btn btn-secondary btn-danger btn-sm" onclick="config(this, 'reset')">Reset</button>
-					<button type="button" class="btn btn-primary btn-success btn-sm" onclick="config(this, 'save')">Save changes</button>
+		<div class="modal fade" id="extensionconfig">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<p class="modal-title">default</p>
+					</div>
+					<div class="modal-body">
+						<form class="content" name="configForm">
+							<div class="form-group">hosdasda</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary btn-sm"
+							onclick="config(this, 'close')"
+						>
+							Close
+						</button>
+						<button
+							type="button"
+							class="btn btn-secondary btn-danger btn-sm"
+							onclick="config(this, 'reset')"
+						>
+							Reset
+						</button>
+						<button
+							type="button"
+							class="btn btn-primary btn-success btn-sm"
+							onclick="config(this, 'save')"
+						>
+							Save changes
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<template name="extension-item">
-		<div class="extension-item">
-			<div class="content">
-				<input type="checkbox" onchange="actionExtension(this, 'toggle')">
-				<span class="name">placeholder</span>
+		<template name="extension-item">
+			<div class="extension-item">
+				<div class="content">
+					<input type="checkbox" onchange="actionExtension(this, 'toggle')" />
+					<span class="name">placeholder</span>
+				</div>
+				<div class="buttons">
+					<button class="config d-none" onclick="actionExtension(this, 'config')">
+						&#9998;
+					</button>
+					<button onclick="actionExtension(this, 'log')">&#128221;</button>
+				</div>
 			</div>
-			<div class="buttons">
-				<button class="config d-none" onclick="actionExtension(this, 'config')">&#9998;</span></button>
-				<button onclick="actionExtension(this, 'log')">&#128221;</button>
-			</div>
-		</div>
-	</template>
+		</template>
 
-	<script src="file://C:/Users/TheGamerX/Documents/Autohotkey/Lib/EzGui/libs/jquery-3.5.1.min.js"></script>
-	<script src="file://C:/Users/TheGamerX/Documents/Autohotkey/Lib/EzGui/inject.js"></script>
-	<script src="js.js"></script>
-	<link rel="stylesheet" href="minify/css.css">
-</body>
+		<script src="js.js"></script>
+	</body>
 </html>

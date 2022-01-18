@@ -1,4 +1,5 @@
 #include <VCP>
+#include <BetterPixel>
 class extension_brightness extends extension_ {
 	static extension := {}
 	,extension.name := "Brightness"
@@ -16,11 +17,11 @@ class extension_brightness extends extension_ {
 
 	setSession(coord, bright, const) {
 		ses := new VCP(coord)
-		if ses.get(0x10).current < bright
-			ses.send(0x10, bright)
+		if ses.get(VCP.BRIGHTNESS).current < bright
+			ses.send(VCP.BRIGHTNESS, bright)
 
-		if ses.get(0x12).current < const
-			ses.send(0x12, const)
+		if ses.get(VCP.CONTRAST).current < const
+			ses.send(VCP.CONTRAST, const)
 
 		ses.close()
 	}
