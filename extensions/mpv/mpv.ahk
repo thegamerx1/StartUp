@@ -13,6 +13,7 @@ class extension_mpv extends extension_ {
 		this.addhotkey("!F4", "closempv", "mpvCheck")
 		this.act := {browser: "ahk_exe vivaldi.exe", mpv: "ahk_exe mpv.exe", anim: "ahk_exe animdl.exe"}
 		this.yt := 0
+		this.cache := {}
 		this.graph := new GraphQL("https://graphql.anilist.co")
 		var =
 		(LTrim
@@ -55,7 +56,7 @@ class extension_mpv extends extension_ {
 			if InStr(url, "youtube.com") {
 				this.youtube(url)
 			} else if InStr(url, "anilist.co") {
-				regex := regex(url, "anilist.co/anime/\d+/(?<name>.+)/", "i")
+				regex := regex(url, "anilist\.co\/anime\/\d+\/(?<name>.+)\/", "i")
 				if (!regex.name)
 					return
 				this.anilist(StrReplace(regex.name, "-", " "))
@@ -96,7 +97,16 @@ class extension_mpv extends extension_ {
 			return
 		}
 		ep := ""
-		data := this.graph.query(format(this.query, name))
+		if this.cache[name] {
+			this.cache[name]
+		} else {
+
+			try {
+				this.cache[name] := this.graph.query(format(this.query, name)).Media.title.romaji
+			} catch {
+				this.log("Anilist failed")
+			}
+		}
 		while !contains("int", TypeOf(ep)) {
 			Inputbox ep, Episode, Episode number,,,,,,,2
 			switch ErrorLevel {
@@ -106,7 +116,7 @@ class extension_mpv extends extension_ {
 					ep := 0
 			}
 		}
-		this.anim.name := data.Media.title.romaji
+		this.anim.name := this.cache[name] ? this.cache[name] :  name
 		this.anim.ep := ep ? ep : 1
 		this.loopindex := 0
 		this.running := true
