@@ -6,7 +6,6 @@ class extension_uselesskeys extends extension_ {
 		this.addhotkey("+Insert", "hotkey",, "prev")
 		this.addhotkey("+Home", "hotkey",, "paus")
 		this.addhotkey("+PgUp", "hotkey",, "next")
-		this.addhotkey("*Pause", "hotkey",, "right")
 	}
 
 	hotkey(name) {
@@ -19,11 +18,6 @@ class extension_uselesskeys extends extension_ {
 
 			case "next":
 				send {Media_Next}
-
-			case "right":
-				send {Right down}
-				keywait Pause, L
-				send {Right up}
 		}
 	}
 }

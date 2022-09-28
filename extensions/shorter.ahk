@@ -38,8 +38,9 @@ class extension_shorter extends extension_ {
 
 	makerequest(shorter, match, auto := true) {
 		clip := this[shorter](match)
-		if !auto
+		if !auto {
 			clipboard := clip
+		}
 		return clip
 	}
 

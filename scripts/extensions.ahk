@@ -15,14 +15,25 @@ class extension_ {
 				this.extension.gui := false
 			}
 		}
+		this.timers := []
 		this.config := config
 		this.Start()
 		this.extension.loaded := true
 	}
 
+	setConfig(default) {
+		this.config.data := EzConf(this.config.data, default)
+	}
+
 	getAsset(name) {
 		path := this.extension.asset "/" name
 		return FileExist(path) ? path : false
+	}
+
+	addTimer(functionName, interval) {
+		newtimer := new timer(ObjBindMethod(this, functionName, interval))
+		this.timers.push(newtimer)
+		return newtimer
 	}
 
 	log(text) {
@@ -45,6 +56,11 @@ class extension_ {
 
 	delete() {
 		extensionHotkeys.clean(this.base.__Class)
+		for i, timer in this.timers {
+			timer.stop()
+			this.timers[i] := ""
+		}
+		this.timers := ""
 		this.afterdelete()
 	}
 
@@ -91,8 +107,9 @@ class extensionHotkeys {
 
 	_createif(hotkey) {
 		fn := ObjBindMethod(this, "checky", hotkey)
-		if (fn)
+		if (fn) {
 			hotkey if, % fn
+		}
 	}
 
 	cally() {
@@ -118,8 +135,9 @@ class extensionHotkeys {
 	clean(extension) {
 		for hotkey, value in this.keylist {
 			for extname, value in value {
-				if (extname != extension)
+				if (extname != extension) {
 					continue
+				}
 				for funcname, key in value {
 					f := func("DummyFunc")
 					this.keylist[hotkey].delete(extname)
@@ -156,15 +174,16 @@ class extensions {
 		for k in this.data.extensions.data {
 			if !Contains(k ".ahk", includer.list, true) {
 				this.data.extensions.data.delete(k)
-
 			}
 		}
+
 		for _, ext in includer.list {
 			name := ext.name
 			error := this.LoadExtension(name)
 			this.translate[name] := Extension_%name%.extension.name
-			if !error
+			if !error {
 				ExtensionGui.AddExtension(this.data.extensions.data[name], Extension_%name%.extension.gui, name)
+			}
 		}
 
 		this.loadtime := this.loadtime.get()
@@ -180,8 +199,9 @@ class extensions {
 	getNameOf(name, reverse := false) {
 		if (reverse) {
 			for key, value in this.translate {
-				if (value = name)
+				if (value = name) {
 					return key
+				}
 			}
 		} else {
 			return this.translate[name]
@@ -189,8 +209,9 @@ class extensions {
 	}
 
 	UnloadExtension(name, actionit := false) {
-		if actionit
+		if actionit {
 			this.data.extensions.data[name] := false
+		}
 
 		this.deleted := ""
 
@@ -207,19 +228,22 @@ class extensions {
 	LoadExtension(name, actionit := false) {
 		extensiontimer := new Counter(, true)
 
-		if actionit
+		if actionit {
 			this.data.extensions.data[name] := true
+		}
 
 		if !IsObject(extension_%name%) {
 			this.log("NameError: nonmatching class """ name """", ERROR)
 			return 1
 		}
 
-		if !this.data.extensions.data[name]
+		if !this.data.extensions.data[name] {
 			return
+		}
 
-		if !IsObject(this.data.config.data[name])
+		if !IsObject(this.data.config.data[name]) {
 			this.data.config.data[name] := {}
+		}
 
 		try {
 			this.data.tempextension[name] := new extension_%name%(this.data.config.data[name])
@@ -264,7 +288,7 @@ class extensions {
 		return this.data.tempextension[name]
 	}
 
-	Save(ExitReason, ExitCode) {
+	Save(ExitReason := "", ExitCode := "") {
 		if ExitReason {
 			for name, extension in this.data.tempextension {
 				if IsObject(extension) {

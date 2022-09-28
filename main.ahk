@@ -4,6 +4,7 @@
 #include scripts/variables.ahk
 
 includer.init("extensions")
+; TODO: Use separate config files and replace UI
 ExtensionGui.init()
 extensions.init()
 

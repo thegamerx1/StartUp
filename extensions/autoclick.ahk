@@ -3,16 +3,14 @@ class extension_autoclick extends extension_ {
 	,extension.name := "Autoclick"
 
 	Start() {
-		this.explorer := "ahk_class CabinetWClass"
 		this.addhotkey("F3", "autoclick")
-		this.toggle := false
 	}
 
 	autoclick() {
-		if (this.toggle := !this.toggle) {
-			this.timer := new timer(objbindmethod(this, "click"), 100)
-		} else {
+		if (this.timer) {
 			this.timer.delete()
+		} else {
+			this.timer := new timer(objbindmethod(this, "click"), 100)
 		}
 	}
 

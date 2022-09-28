@@ -4,6 +4,7 @@ class ExtensionGui {
 		Menu Tray, Click, 1
 		Menu Tray, Tip, % script.name
 		Menu Tray, Icon, icons\icon.ico
+
 		this.gui := new EzGui(this, {w: 680
 			,h: 320
 			,title: script.name
@@ -40,7 +41,12 @@ class ExtensionGui {
 	}
 
 	configSave(str) {
-		extensions.getExtension(this.lastopentconfig).save(JSON.load(str))
+		output := extensions.getExtension(this.lastopentconfig).save(JSON.load(str))
+		if output {
+			msgbox % output
+			return false
+		}
+		return true
 	}
 
 	getHtml(name) {
@@ -50,13 +56,17 @@ class ExtensionGui {
 	}
 
 	getConfig(name) {
-		data := JSON.dump(extensions.getExtension(name).config.data)
-		return (data) ? data : "{}"
+		if (extensions.getExtension(name).getConfig) {
+			data := extensions.getExtension(name).getConfig()
+		} else {
+			data := extensions.getExtension(name).config.data
+		}
+		return data ? JSON.dump(data) : "{}"
 	}
 
 	getPlaceholder(name) {
 		data := JSON.dump(extensions.getExtension(name).config.placeholder)
-		return (data) ? data : "{}"
+		return data ? data : "{}"
 	}
 
 	AddExtension(enabled, config, name) {
@@ -77,6 +87,7 @@ class ExtensionGui {
 
 	close() {
 		this.gui.visible := false
+		extensions.save()
 	}
 
 	save() {

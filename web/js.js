@@ -74,7 +74,9 @@ function actionExtension(e, action) {
 function config(e, action) {
 	switch (action) {
 		case "save":
-			ahk.configSave(JSON.stringify(formObject(els.configform)))
+			let output = ahk.configSave(JSON.stringify(formObject(els.configform)))
+			if (output == 0) return
+			els.config.modal("hide")
 			break
 
 		case "reset":
@@ -82,8 +84,11 @@ function config(e, action) {
 				this.value = this.placeholder
 			})
 			return
+
+		case "close":
+			els.config.modal("hide")
+			break
 	}
-	els.config.modal("hide")
 }
 
 function logareaSet(type) {
