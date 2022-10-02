@@ -304,5 +304,6 @@ class extensions {
 		Critical On
 		this.data.extensions.save()
 		this.data.config.save()
+		Critical Off
 	}
 }
