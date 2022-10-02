@@ -193,7 +193,7 @@ class extensions {
 			if (value)
 				this.loadedExtensions++
 
-		OnExit(ObjBindMethod(this, "Save"), -1)
+		OnExit(ObjBindMethod(this, "_save"), -1)
 	}
 
 	getNameOf(name, reverse := false) {
@@ -296,6 +296,12 @@ class extensions {
 				}
 			}
 		}
+		this._save()
+	}
+
+	_save() {
+		; So it doesn't fail saving on Reload
+		Critical On
 		this.data.extensions.save()
 		this.data.config.save()
 	}

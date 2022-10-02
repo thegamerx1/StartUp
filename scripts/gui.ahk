@@ -15,7 +15,6 @@ class ExtensionGui {
 			,handleExit: true})
 
 		this.gui.initHooks()
-		OnExit(ObjBindMethod(this, "save"))
 		DllCall("RegisterShellHookWindow", "UInt", this.gui.controls.gui)
 		Debug.attachRedirect := ObjBindMethod(this, "log")
 
