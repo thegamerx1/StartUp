@@ -4,7 +4,7 @@ class extension_explorer extends extension_ {
 
     Start() {
         this.explorer := "ahk_class CabinetWClass"
-        this.alacritty := "ahk_exe alacritty.exe"
+        this.alacritty := "ahk_exe wezterm-gui.exe"
 
         this.addhotkey("^Backspace", "backspacefix", "check")
         this.addhotkey("#e", "open")
@@ -22,7 +22,7 @@ class extension_explorer extends extension_ {
 
     runalacritty() {
         local directory := GetActiveExplorerPath()
-        run alacritty.exe, % directory ? directory : this.userprofile
+        run wezterm.exe, % directory ? directory : this.userprofilem, Hide
         ; sleep 100
         ; WinWait ahk_pid %pid% ahk_class Window Class
         ; WinActivate ahk_pid %pid% ahk_class Window Class
