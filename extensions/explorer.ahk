@@ -3,14 +3,15 @@ class extension_explorer extends extension_ {
     ,extension.name := "Explorer"
 
     Start() {
-        this.explorer := "ahk_class CabinetWClass"
+        ; this.explorer := "ahk_class CabinetWClass"
+        this.explorer := "ahk_exe onecommander.exe"
         this.alacritty := "ahk_exe wezterm-gui.exe"
 
         this.addhotkey("^Backspace", "backspacefix", "check")
         this.addhotkey("#e", "open")
 
-        this.addhotkey("!#c", "terminal")
-        this.addhotkey("#c", "terminalI")
+        this.addhotkey("#Enter", "terminal")
+        this.addhotkey("!#c", "terminalI")
 
         EnvGet UserProfile, UserProfile
         this.userprofile := UserProfile
@@ -48,13 +49,17 @@ class extension_explorer extends extension_ {
 
 
     open() {
+        local old := A_DetectHiddenWindows
+        DetectHiddenWindows Off
         if (!WinExist(this.explorer)) {
-            run explorer.exe
+            run OneCommander.exe,, hide
         } else if (WinActive(this.explorer)) {
-            SendMessage 0x112, 0xF020,,, % this.explorer
+            ; SendMessage 0x112, 0xF020,,, % this.explorer
+            WinMinimize A
         } else {
             WinActivate % this.explorer
         }
+        DetectHiddenWindows % old
         KeyWait #
         KeyWait e
     }
