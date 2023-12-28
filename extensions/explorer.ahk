@@ -5,46 +5,65 @@ class extension_explorer extends extension_ {
     Start() {
         ; this.explorer := "ahk_class CabinetWClass"
         this.explorer := "ahk_exe onecommander.exe"
-        this.alacritty := "ahk_exe wezterm-gui.exe"
 
         this.addhotkey("^Backspace", "backspacefix", "check")
         this.addhotkey("#e", "open")
 
-        this.addhotkey("#Enter", "terminal")
-        this.addhotkey("!#c", "terminalI")
+        this.addhotkey("#f", "terminal")
+        this.addhotkey("#w", "windowclose")
+        this.addhotkey("#n", "minimizewindow")
+        this.addhotkey("#m", "maximizewindow")
 
         EnvGet UserProfile, UserProfile
         this.userprofile := UserProfile
+    }
+
+    windowclose() {
+        WinClose A
+    }
+
+    closewindow() {
+        WinMinimize A
+    }
+
+    maximizewindow() {
+        WinMaximize A
     }
 
     check() {
         return WinActive(this.explorer)
     }
 
-    runalacritty() {
-        local directory := GetActiveExplorerPath()
-        run wezterm.exe, % directory ? directory : this.userprofilem, Hide
-        ; sleep 100
-        ; WinWait ahk_pid %pid% ahk_class Window Class
-        ; WinActivate ahk_pid %pid% ahk_class Window Class
-    }
-
-    terminalI() {
-        this.runalacritty()
-        KeyWait #
-        KeyWait c
-    }
 
     terminal() {
-        if (!WinExist(this.alacritty)) {
-            this.runalacritty()
-        } else if (WinActive(this.alacritty)) {
-            SendMessage 0x112, 0xF020,,, % this.alacritty
+        if (!WinExist("ahk_id" this.terminalid)) {
+            this.terminalid := this.runterminal()
+        } else if (WinActive("ahk_id" this.terminalid)) {
+            WinHide % "ahk_id" this.terminalid
+            MouseGetPos,,, WinUMID
+            WinActivate, ahk_id %WinUMID%
+            ; SendMessage 0x112, 0xF020,,, % this.terminalid
         } else {
-            WinActivate % this.alacritty
+            WinShow % "ahk_id" this.terminalid
+            WinWait % "ahk_id" this.terminalid
+            WinActivate % "ahk_id" this.terminalid
         }
         KeyWait #
-        KeyWait c
+        KeyWait t
+    }
+
+    runterminal() {
+        local directory := GetActiveExplorerPath()
+        WinGet currentid, ID, A
+        run C:/users/%A_UserName%/scoop/apps/windows-terminal/current/WindowsTerminal.exe,, hide
+        loop {
+            WinWait ahk_exe WindowsTerminal.exe
+            nowid := WinExist("A")
+            this.log(nowid)
+            if (nowid != currentid) {
+                return nowid
+            }
+        }
     }
 
 
@@ -52,10 +71,10 @@ class extension_explorer extends extension_ {
         local old := A_DetectHiddenWindows
         DetectHiddenWindows Off
         if (!WinExist(this.explorer)) {
-            run OneCommander.exe,, hide
+            run C:/users/%A_UserName%/scoop/apps/onecommander/current/OneCommander.exe,, hide
         } else if (WinActive(this.explorer)) {
             ; SendMessage 0x112, 0xF020,,, % this.explorer
-            WinMinimize A
+            WinClose A
         } else {
             WinActivate % this.explorer
         }
