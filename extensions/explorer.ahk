@@ -55,7 +55,7 @@ class extension_explorer extends extension_ {
     runterminal() {
         local directory := GetActiveExplorerPath()
         WinGet currentid, ID, A
-        run C:/users/%A_UserName%/scoop/apps/windows-terminal/current/WindowsTerminal.exe,, hide
+        run C:/users/%A_UserName%/scoop/apps/windows-terminal/current/WindowsTerminal.exe
         loop {
             WinWait ahk_exe WindowsTerminal.exe
             nowid := WinExist("A")
