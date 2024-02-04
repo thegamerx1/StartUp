@@ -8,7 +8,11 @@ class extension_ {
 			}
 		}
 		if this.extension.gui {
-			FileRead html, % this.getAsset("config.html")
+			if A_IsCompiled {
+				html := GetScriptResource("extensions/" this.name "/config.html")
+			} else {
+				FileRead html, % this.getAsset("config.html")
+			}
 			if html {
 				this.extension.html := html
 			} else {

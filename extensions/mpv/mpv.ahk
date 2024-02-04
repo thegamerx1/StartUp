@@ -1,4 +1,5 @@
 #include <GraphQL>
+FileInstall extensions/mpv/config.html, ~
 
 class extension_mpv extends extension_ {
 	static extension := {}

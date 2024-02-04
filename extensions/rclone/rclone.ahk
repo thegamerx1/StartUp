@@ -1,4 +1,6 @@
 #include <timer>
+FileInstall extensions/rclone/config.html, ~
+
 class extension_rclone extends extension_ {
 	static extension := {}
 	,extension.name := "RClone"

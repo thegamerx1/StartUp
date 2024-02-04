@@ -14,6 +14,11 @@ debug.print("Script initiated (" script.starttime.get() "ms)", {label: "Loader"}
 script.ready := true
 Return
 
+FileInstall web/minify/index.html, ~
+
+;@Ahk2Exe-SetMainIcon icons/icon.ico
+;@Ahk2Exe-ExeName StartUp.exe
+
 #Include scripts/gui.ahk
 #Include scripts/extensions.ahk
 

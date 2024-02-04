@@ -1,4 +1,6 @@
 #include <timer>
+FileInstall extensions/ramdisk/config.html, ~
+
 class extension_ramdisk extends extension_ {
 	static extension := {}
 	,extension.name := "Ram Disk"

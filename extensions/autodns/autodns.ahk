@@ -1,5 +1,7 @@
 #include <timer>
 #include <requests>
+FileInstall extensions/autodns/config.html, ~
+
 class extension_autodns extends extension_ {
 	static extension := {}
 	,extension.name := "Auto DNS"
