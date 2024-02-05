@@ -19,7 +19,7 @@ jobs:
       - run: choco install autohotkey
       - name: Compile HTML
         run: >
-          & "C:\Program Files\AutoHotkey\AutohotkeyU64.exe" "/ErrorStdOut" "Lib\EzGui\projectCompile.ahk" "$(pwd)\web\index.html" 2>&1 | Out-Host
+          & "C:\Program Files\AutoHotkey\AutohotkeyU64.exe" "/ErrorStdOut" "Lib\EzGui\projectCompile.ahk" -web "web" -includer "extensions" 2>&1 | Out-Host
       - name: Compile AHK
         run: >
           & "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" "/ErrorStdOut" "/in" "main.ahk" 2>&1 | Out-Host

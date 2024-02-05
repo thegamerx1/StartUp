@@ -1,7 +1,7 @@
 class extension_ {
 	__New(ByRef config) {
 		this.name := SubStr(this.base.__Class, StrLen("extension_")+1)
-		for name, value in includer.list {
+		for name, value in extensions_includer.list {
 			if (name == this.name ".ahk") {
 				this.extension.asset := value.folder
 				break
@@ -176,12 +176,12 @@ class extensions {
 		extensionHotkeys.init()
 
 		for k in this.data.extensions.data {
-			if !Contains(k ".ahk", includer.list, true) {
+			if !Contains(k ".ahk", extensions_includer.list, true) {
 				this.data.extensions.data.delete(k)
 			}
 		}
 
-		for _, ext in includer.list {
+		for _, ext in extensions_includer.list {
 			name := ext.name
 			error := this.LoadExtension(name)
 			this.translate[name] := Extension_%name%.extension.name

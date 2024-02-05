@@ -3,7 +3,8 @@
 #NoTrayIcon
 #include scripts/variables.ahk
 
-includer.init("extensions")
+global extensions_includer := new includer("extensions")
+extensions_includer.init()
 ; TODO: Use separate config files and replace UI
 ExtensionGui.init()
 extensions.init()
