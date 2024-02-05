@@ -6,7 +6,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Checkout ahk-libs
         run: git clone https://github.com/thegamerx1/ahk-libs Lib
