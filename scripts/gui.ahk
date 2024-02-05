@@ -3,7 +3,9 @@ class ExtensionGui {
 		Menu Tray, NoStandard
 		Menu Tray, Click, 1
 		Menu Tray, Tip, % script.name
-		Menu Tray, Icon, icons\icon.ico
+		If !A_IsCompiled {
+			Menu Tray, Icon, icons\icon.ico
+		}
 
 		this.gui := new EzGui(this, {w: 680
 			,h: 320
