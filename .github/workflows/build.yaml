@@ -16,7 +16,10 @@ jobs:
           New-Item -Path "$HOME\Documents\Autohotkey" -ItemType Directory -Force
           New-Item -ItemType Junction -Path "$HOME\Documents\Autohotkey\Lib" -Target "$(pwd)\Lib"
 
-      - run: choco install autohotkey sass
+      - run: |
+          choco install autohotkey.install --version=1.1.37.1
+          choco install sass
+
       - name: Compile HTML
         run: >
           & "C:\Program Files\AutoHotkey\AutohotkeyU64.exe" "/ErrorStdOut" "Lib\EzGui\projectCompile.ahk" -sass ".\web\css.sass" ".\web\minify\css.css" -web "web" -includer "extensions" 2>&1 | Out-Host
