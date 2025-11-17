@@ -7,7 +7,14 @@ class extension_clipsend extends extension_ {
     }
 
     sendClip() {
+        KeyWait Ctrl
         KeyWait Insert
-        SendInput % clipboard
+        text := StrReplace(clipboard, "`r", "")
+        keydelay := 10
+        Loop, Parse, text
+        {
+            SendRaw, % A_LoopField
+            sleep, % keydelay
+        }
     }
 }
