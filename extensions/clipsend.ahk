@@ -3,12 +3,13 @@ class extension_clipsend extends extension_ {
     ,extension.name := "Clip Send"
 
     Start() {
-        this.addhotkey("^Insert", "sendClip")
+        this.addhotkey("^!v", "sendClip")
     }
 
     sendClip() {
         KeyWait Ctrl
-        KeyWait Insert
+        KeyWait Alt
+        KeyWait v
         text := StrReplace(clipboard, "`r", "")
         keydelay := 10
         Loop, Parse, text
