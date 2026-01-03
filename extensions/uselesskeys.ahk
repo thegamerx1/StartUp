@@ -3,7 +3,7 @@ class extension_uselesskeys extends extension_ {
 	,extension.name := "Useless Keys"
 
 	Start() {
-		this.addhotkey("+Insert", "hotkey",, "prev")
+		this.addhotkey("+PgDown", "hotkey",, "prev")
 		this.addhotkey("+Home", "hotkey",, "paus")
 		this.addhotkey("+PgUp", "hotkey",, "next")
 		this.addhotkey("^!WheelUp", "vol",, 1)
